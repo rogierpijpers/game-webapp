@@ -11,6 +11,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
 public class JSONParser {
 	
 	public static JSONArray getObjects(String API_BASE, Map<String, String> params, Map<String, String> headers) throws IOException, JSONException{
@@ -26,6 +37,8 @@ public class JSONParser {
 		if(!headers.isEmpty() || params == null){
 			addHeaders(conn, headers);
 		}
+		
+		//System.out.println(url.toString());
 		
 		InputStreamReader in = new InputStreamReader(conn.getInputStream());
 		
@@ -48,10 +61,10 @@ public class JSONParser {
 		
 		int count = 0;
 		for(Map.Entry<String, String> entry : params.entrySet()){
-			char prefix = '&';
+			String prefix = "";
 			
 			if(count > 0){
-				prefix = '&';
+				prefix = "&";
 			}	
 			sb.append(prefix+entry.getKey()+"="+entry.getValue());
 				
@@ -81,4 +94,5 @@ public class JSONParser {
 		return result;
 	}
 }
+
 

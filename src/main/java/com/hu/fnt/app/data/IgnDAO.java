@@ -1,5 +1,4 @@
 package com.hu.fnt.app.data;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,18 +25,20 @@ public class IgnDAO {
 			e.printStackTrace();
 		}
 		
+		double score = 0.0;
 		if(results != null){
-			double score;
 			
 			try {
 				String scoreStr = results.getJSONObject(0).getString("score");
-				score = Double.parseDouble(scoreStr);
+				if(!scoreStr.isEmpty()){
+					score = Double.parseDouble(scoreStr);
+				}
 			} catch (JSONException e) {
-				score = 0.0;
+				//do nothing
 			}
 			return score;
 		}else{
-			return 0.0;
+			return score;
 		}
 	}
 	
@@ -55,3 +56,4 @@ public class IgnDAO {
 	
 	
 }
+
