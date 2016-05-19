@@ -29,7 +29,7 @@ public class GameFacade {
 	 * @param appId
 	 * @return
 	 */
-	public static Game getGameDetials(int appId){
+	public static Game getGameDetails(int appId){
 		return null;
 	}
 	

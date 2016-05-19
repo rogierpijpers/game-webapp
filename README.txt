@@ -4,7 +4,7 @@
 
 EERST:
 
--eerst moet de wsdl gemaakt worden! daarna kan maven pas builden (d.m.v. clean install) en de benodigde dependencies ophalen
+-eerst moet de wsdl gemaakt worden!! daarna kan maven pas builden (d.m.v. clean install) en de benodigde dependencies ophalen
 
 -GameService klasse maken we vanaf de wsdl, vandaar dat ik die nog niet heb aangemaakt
 
