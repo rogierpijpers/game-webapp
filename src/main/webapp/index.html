@@ -17,34 +17,48 @@
 		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 		crossorigin="anonymous"></script>
 
+	<!-- AngularJS -->
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript"
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
 </header>
 <body>
-	<div class="container">
-		<div class="header clearfix">
-			<h3 class="text-muted">Steam Game Review Service</h3>
+	<div ng-app="game-app" ng-controller="GameCtrl">
+		<div class="container">
+			<div class="header clearfix">
+				<h3 class="text-muted">Steam Game Review Service</h3>
+			</div>
+			<div class="jumbotron">
+				<h1 class="display-3">Select A Game</h1>
+				<p>Steam game reviews, ratings and more...</p>
+				<p>
+					<label>Search: </label><input type="text"
+						class="form-control ng-valid ng-dirty" ng-model="searchKeyword" />
+				</p>
+			</div>
 		</div>
-		<div class="jumbotron">
-			<h1 class="display-3">Select A Game</h1>
-			<p>
-				Steam game reviews, ratings and more...
-			</p>
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>AppID</th>
+						<th>Title</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="game in Games | filter: serchKeyword " ng-click="">
+						<!--  NG REPEAT -->
+						<td>{{game.appId}}</td>
+						<td>{{game.title}}</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
-	</div>
-	<div class="container">
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>AppID</th>
-					<th>Title</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr> <!--  NG REPEAT -->
-					<td></td>
-					<td></td>
-				</tr>
-			</tbody>
-		</table>
 	</div>
 </body>
+
+<script type="text/javascript" src="/include/app.js"></script>
+
 </html>

@@ -17,6 +17,12 @@
 		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
 		crossorigin="anonymous"></script>
 
+	<!-- AngularJS -->
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript"
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
 	<style>
 .btn {
 	color: white;
@@ -25,48 +31,117 @@
 
 .content {
 	background-color: #eee;
+	padding: 10px;
+}
+
+.display-2 {
+	margin-top: 0px;
+}
+
+#player {
+	width: 480px;
+	height: 292px;
+	margin: 30px;
 }
 </style>
 </header>
 <body>
-	<div class="container">
-		<div class="header clearfix">
-			<h3 class="text-muted">Steam Game Review Service</h3>
-		</div>
-		<div class="jumbotron">
-			<h1 class="display-3">Game Title</h1>
-			<p>Subtitle?</p>
-			<p>
-				<a class="btn brn-primary btn-lg" href="index.html" role="button">Terug
-					naar overzicht</a>
-			</p>
-		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-6">
-				<div class="content">
-					<p>Content Content Content Content</p>
+	<div ng-app="game-app" ng-controller="GameCtrl">
+		<div class="container">
+			<div class="header clearfix">
+				<h3 class="text-muted">Steam Game Review Service</h3>
+			</div>
+			<div class="jumbotron">
+				<div class="row">
+					<div class="col-sm-7">
+						<h1 class="display-3">Game Title</h1>
+						<p>Subtitle?</p>
+						<p>
+							<a class="btn brn-primary btn-lg" href="index.html" role="button">Terug
+								naar overzicht</a>
+						</p>
+					</div>
+					<div class="col-sm-5">
+						<a href="#" class="thumbnail"> <img
+							src="http://www.howtorecordpodcasts.com/wp-content/uploads/2012/10/YouTube-Background-Pop-1.jpg"
+							alt="Generic placeholder thumbnail">
+						</a>
+					</div>
 				</div>
 			</div>
-			<div class="col-sm-6">
-				<div class="row">
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
 					<div class="content">
-						<p>IGN Rating</p>
+						<p>Content Content Content Content</p>
 					</div>
 				</div>
-				<div class="row">
-					<div class="content">
-						<p>Youtube Trailer</p>
+				<div class="col-sm-6">
+					<div class="row">
+						<div class="content">
+							<h2 class="display-2">IGN RATING: 0.0</h2>
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="content">
-						<p>Review</p>
+					<p></p>
+					<div class="row">
+						<div class="content">
+							<h2 class="display-2">Trailer</h2>
+
+							<iframe id="player" type="text/html"
+								src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
+								frameborder="0"></iframe>
+						</div>
+					</div>
+					<p></p>
+					<div class="row">
+						<div class="content">
+							<h2 class="display-2">Review</h2>
+							<p>Review</p>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
+
+<script type="text/javascript" src="/include/app.js"></script>
+
+<!-- YOUTUBE API SCRIPT -->
+<script>
+	var tag = document.createElement('script');
+
+	tag.src = "https://www.youtube.com/iframe_api";
+	var firstScriptTag = document.getElementsByTagName('script')[0];
+	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+	var player;
+	function onYouTubeIframeAPIReady() {
+		player = new YT.Player('player', {
+			height : '390',
+			width : '640',
+			videoId : 'M7lc1UVf-VE',
+			events : {
+				'onReady' : onPlayerReady,
+				'onStateChange' : onPlayerStateChange
+			}
+		});
+	}
+
+	function onPlayerReady(event) {
+		event.target.playVideo();
+	}
+
+	var done = false;
+	function onPlayerStateChange(event) {
+		if (event.data == YT.PlayerState.PLAYING && !done) {
+			//setTimeout(stopVideo, 6000);
+			done = true;
+		}
+	}
+	function stopVideo() {
+		player.stopVideo();
+	}
+</script>
 </html>
