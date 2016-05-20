@@ -4,27 +4,41 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 
 public class JSONParser {
+	private Map<String, String> params;
+	private Map<String, String> headers;
+	private String API_BASE;
+	private boolean printURL;
 	
-	public static JSONArray getObjects(String API_BASE, Map<String, String> params, Map<String, String> headers) throws IOException, JSONException{
+	public JSONParser(String API_BASE){
+		this.API_BASE = API_BASE;
+		
+		params = new HashMap<String, String>();
+		headers = new HashMap<String, String>();
+		
+		printURL = false;
+	}
+	
+	public void addParam(String key, String value){
+		params.put(key, value);
+	}
+	
+	public void addHeader(String key, String value){
+		headers.put(key, value);
+	}
+	
+	public void printURLonExecute(Boolean print){
+		this.printURL = print;
+	}
+	
+	
+	public JSONArray getObjects() throws IOException, JSONException{
 		StringBuilder sb = new StringBuilder(API_BASE);
 		
 		if(!params.isEmpty() || params == null){
@@ -38,7 +52,10 @@ public class JSONParser {
 			addHeaders(conn, headers);
 		}
 		
-		//System.out.println(url.toString());
+		if(printURL){
+			System.out.println(url.toString());
+		}
+		
 		
 		InputStreamReader in = new InputStreamReader(conn.getInputStream());
 		
