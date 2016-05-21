@@ -74,7 +74,9 @@ public class JSONParser {
 	}
 	
 	private static void addParams(StringBuilder sb, Map<String, String> params){
-		sb.append("?");
+		if(!sb.toString().endsWith("?")){
+			sb.append("?");
+		}
 		
 		int count = 0;
 		for(Map.Entry<String, String> entry : params.entrySet()){
@@ -111,5 +113,4 @@ public class JSONParser {
 		return result;
 	}
 }
-
 
