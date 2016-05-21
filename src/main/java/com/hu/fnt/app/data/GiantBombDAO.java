@@ -15,6 +15,7 @@ import org.json.JSONException;
 
 import com.hu.fnt.app.util.JSONParser;
 
+
 public class GiantBombDAO {
     private static final String API_KEY = "e8545aaf5791d435a1fd8d77eb675b14dc94d483";
     private static final String API_BASE = "http://www.giantbomb.com/api/";
