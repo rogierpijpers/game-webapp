@@ -10,91 +10,51 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import com.hu.fnt.app.util.JSONParser;
 
 public class GiantBombDAO {
+    private static final String API_KEY = "e8545aaf5791d435a1fd8d77eb675b14dc94d483";
+    private static final String API_BASE = "http://www.giantbomb.com/api/";
 
-    private final String API_KEY = "e8545aaf5791d435a1fd8d77eb675b14dc94d483";
-    private final String API_BASE = "http://www.giantbomb.com/api/";
-
-    //getReview//API_BASE + "/review/"+ gameId +"/?api_key=" + API_KEY + "&format=json&field_list=description:"
-    //SearchGame//API_BASE + "/games/?api_key=" + API_KEY + "&format=json&filter=name:" + gameTitle
-   
-    public String getJSON(URL siteUrl) {
-        String json = null;
-        try {
-            URL url = new URL("" + siteUrl);
-
-            URLConnection urlConnection = url.openConnection();
-            InputStream is = urlConnection.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is);
-
-            int numCharsRead;
-            char[] charArray = new char[1024];
-            StringBuilder sb = new StringBuilder();
-            while ((numCharsRead = isr.read(charArray)) > 0) {
-                sb.append(charArray, 0, numCharsRead);
-            }
-            json = sb.toString();
-            System.out.println(json);
-            is.close();
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return json;
-    }
-
-    public Map<String, String> getIdsAndNames(String jsonInput) {
-
-        Map<String, String> idsAndNames = new HashMap<>();
-
-        try {
-
-            JSONObject json = (JSONObject) new JSONParser().parse(jsonInput);
-            JSONArray array = (JSONArray) json.get("results");
-            Iterator i = array.iterator();
-            while (i.hasNext()) {
-                JSONObject inner = (JSONObject) i.next();
-
-                idsAndNames.put((String) inner.get("id"), (String) inner.get("name"));
-
-            }
-
-        } catch (Exception e) {
-            System.out.println("Failed");
-            e.printStackTrace();
-        }
-        return idsAndNames;
-
-    }
-    
-    public String getReview(String jsonInput) {
-
-        String gameReview = null;
-
-        try {
-
-            JSONObject json = (JSONObject) new JSONParser().parse(jsonInput);
-            JSONArray array = (JSONArray) json.get("results");
-            Iterator i = array.iterator();
-            while (i.hasNext()) {
-                JSONObject inner = (JSONObject) i.next();
-
-                gameReview = (String) inner.get("description");
-
-            }
-
-        } catch (Exception e) {
-            System.out.println("Failed");
-            e.printStackTrace();
-        }
-        return gameReview;
-
+    public static String getReview(String gameTitle) {
+        gameTitle = gameTitle.replaceAll(" ", "%20");
+        
+        JSONParser parser = new JSONParser(API_BASE + "games/");
+        parser.addParam("api_key", API_KEY);
+    	parser.addParam("format", "json");
+    	parser.addParam("filter", "name:"+gameTitle);
+    	parser.addParam("field_list", "name,description");
+    	
+    	parser.printURLonExecute(true);
+    	
+    	JSONArray result;
+    	
+    	String review = "";
+    	
+		try {
+			JSONArray returnValue = parser.getObjects();
+			result = returnValue.getJSONObject(0).getJSONArray("results");
+			
+			for(int i = 0; i < result.length(); i++){
+				gameTitle = gameTitle.replaceAll("%20", " ");
+				
+				if(gameTitle.equals(result.getJSONObject(i).getString("name").trim())){
+					review = result.getJSONObject(i).getString("description");
+				}
+			}
+			if(review.equals("")){
+				review = result.getJSONObject(0).getString("description");
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	return review;
     }
 }
