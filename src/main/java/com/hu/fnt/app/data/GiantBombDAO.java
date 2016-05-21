@@ -22,7 +22,7 @@ public class GiantBombDAO {
     //getReview//API_BASE + "/review/"+ gameId +"/?api_key=" + API_KEY + "&format=json&field_list=description:"
     //SearchGame//API_BASE + "/games/?api_key=" + API_KEY + "&format=json&filter=name:" + gameTitle
    
-    public String getJSON(URL siteUrl) {
+    public String getJSON(String siteUrl) {
         String json = null;
         try {
             URL url = new URL("" + siteUrl);
@@ -50,8 +50,8 @@ public class GiantBombDAO {
         return json;
     }
 
-    public Map<String, String> getIdsAndNames(String jsonInput) {
-
+    public Map<String, String> getIdsAndNames(String gameTitle) {
+        String jsonInput = getJSON(API_BASE + "/games/?api_key=" + API_KEY + "&format=json&filter=name:" + gameTitle);
         Map<String, String> idsAndNames = new HashMap<>();
 
         try {
@@ -74,8 +74,8 @@ public class GiantBombDAO {
 
     }
     
-    public String getReview(String jsonInput) {
-
+    public String getReview(String gameId) {
+        String jsonInput = getJSON(API_BASE + "/review/"+ gameId +"/?api_key=" + API_KEY + "&format=json&field_list=description:");
         String gameReview = null;
 
         try {
