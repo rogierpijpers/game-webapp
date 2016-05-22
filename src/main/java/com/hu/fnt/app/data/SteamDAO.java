@@ -2,7 +2,9 @@ package com.hu.fnt.app.data;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +32,29 @@ public class SteamDAO {
 		JSONArray result;
 		List<Game> allGames = new ArrayList<Game>();
 
+		Set<String> filterWords = new HashSet<String>();
+		filterWords.add("Demo"); filterWords.add("Film");
+		filterWords.add("Trailer"); filterWords.add("SDK");
+		filterWords.add("Pack"); filterWords.add("Expansion");
+		filterWords.add("Commercial"); filterWords.add("Pre-order");
+		filterWords.add("Beta"); filterWords.add("Key");
+		filterWords.add("Collector"); filterWords.add("Content");
+		filterWords.add("Dedicated Server"); filterWords.add("Soundtrack");
+		filterWords.add("Sound Track"); filterWords.add("Art Book");
+		filterWords.add("Extras"); filterWords.add("Tool"); 
+		filterWords.add("Season Pass"); filterWords.add("Skin"); 
+		filterWords.add("Bonus"); filterWords.add("Viewer"); 
+		filterWords.add("DLC"); filterWords.add("Video");
+		filterWords.add("Announcement"); filterWords.add("Announcer");
+		filterWords.add("Tutorial"); filterWords.add("Help");
+		filterWords.add("Bundle"); filterWords.add("Wallpaper");
+		filterWords.add("Additional"); filterWords.add("Edition");
+		filterWords.add("Activation"); filterWords.add("Costume");
+		filterWords.add("Sculpting"); filterWords.add("Concepting");
+		filterWords.add("3DS"); filterWords.add("Addon");
+		filterWords.add("Add-on"); filterWords.add("Robotpencil");
+		filterWords.add("Commentary"); filterWords.add("Upgrade");
+
 		int appId = 0;
 		String name = "";
 
@@ -41,7 +66,10 @@ public class SteamDAO {
 			for (int i = 0; i < result.length(); i++) {
 				appId = result.getJSONObject(i).getInt("appid");
 				name = result.getJSONObject(i).getString("name");
-				allGames.add(new Game(appId, name));
+
+				if (!containsWord(filterWords, name)) {
+					allGames.add(new Game(appId, name));
+				}
 			}
 		} catch (JSONException e1) {
 			e1.printStackTrace();
@@ -85,5 +113,14 @@ public class SteamDAO {
 			e.printStackTrace();
 		}
 		return game;
+	}
+
+	private static boolean containsWord(Set<String> words, String appName) {
+		for (String word : words) {
+			if (appName.contains(word)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
