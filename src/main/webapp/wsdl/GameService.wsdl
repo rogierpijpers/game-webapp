@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+xmlns:tns="http://www.hu.nl/"
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="GameService"
+   targetNamespace="http://www.hu.nl/"
+   xmlns:requestGame="http://www.hu.nl/gamesRequest"
+   xmlns:responseGame="http://www.hu.nl/gamesResponse"
+   xmlns:requestGameDetails="http://www.hu.nl/gameDetailsRequest"
+   xmlns:responseGameDetails="http://www.hu.nl/gameDetailsResponse"
+   xmlns:service="http://www.hu.nl/">
+  <wsdl:types>
+    <xsd:schema>
+      			<xsd:import namespace="http://www.hu.nl/gamesRequest"
+				schemaLocation="getGamesRequest.xsd" />
+			<xsd:import namespace="http://www.hu.nl/gamesResponse"
+				schemaLocation="getGamesResponse.xsd" />
+                        <xsd:import namespace="http://www.hu.nl/gameDetailsRequest"
+				schemaLocation="getGameDetailsRequest.xsd" />
+			<xsd:import namespace="http://www.hu.nl/gameDetailsResponse"
+				schemaLocation="getGameDetailsResponse.xsd" />
+
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="gamesRequest">
+    <wsdl:part name="gamesRequest" element="requestGame:gamesRequest"/>
+  </wsdl:message>
+  <wsdl:message name="gamesResponse">
+    <wsdl:part name="gamesResponse" element="responseGame:gamesResponse"/>
+  </wsdl:message>
+   <wsdl:message name="gameDetailsRequest">
+    <wsdl:part name="gameDetailsRequest" element="requestGameDetails:gameDetailsRequest"/>
+  </wsdl:message>
+  <wsdl:message name="gameDetailsResponse">
+    <wsdl:part name="gameDetailsResponse" element="responseGameDetails:gameDetailsResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="WS-Interface">
+    <wsdl:operation name="getGames">
+      <wsdl:input message="service:gamesRequest"/>
+      <wsdl:output message="service:gamesResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getGameDetails">
+      <wsdl:input message="service:gameDetailsRequest"/>
+      <wsdl:output message="service:gameDetailsResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WS-Binding" type="service:WS-Interface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getGames">
+      <soap:operation soapAction="" style = "document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGameDetails">
+      <soap:operation soapAction="" style = "document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="API-Service">
+    <wsdl:port name="WS-Port" binding="service:WS-Binding">
+      <soap:address location="http://www.hu.nl/SayHello/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

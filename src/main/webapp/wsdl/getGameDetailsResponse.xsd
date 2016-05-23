@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:tns="http://schemas.hu.fnt.nl/gameDetailsResponse" targetNamespace="http://schemas.hu.fnt.nl/gameDetailsResponse"
+	xmlns:tns="http://www.hu.nl/gameDetailsResponse" targetNamespace="http://www.hu.nl/gameDetailsResponse"
 	elementFormDefault="qualified">
 
 	<xs:element name="gameDetailsResponse" type="tns:GameDetailsResponse"/>
