@@ -7,21 +7,10 @@ import org.json.JSONException;
 
 import com.hu.fnt.app.util.JSONParser;
 
-
 public class YoutubeDAO {
 	public static final String API_BASE = "https://www.googleapis.com/youtube/v3/search?";
 	public static final String API_KEY = "AIzaSyAvc0ZKkQc9isKwPKRPhUDqrgRh7krDwQQ";
-	
-	/**
-	 * Zoeken op gameTitle + " trailer"
-	 * 
-	 * voor documentatie:
-	 * https://developers.google.com/youtube/v3/docs/search/list#examples
-	 * 
-	 * @param gameTitle
-	 * @return
-	 */
-	
+
 	public static String getVideoId(String gameTitle){
         gameTitle = gameTitle.replaceAll(" ", "%20");
         
@@ -48,7 +37,6 @@ public class YoutubeDAO {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-    	
 		return videoId;
 	}
 }

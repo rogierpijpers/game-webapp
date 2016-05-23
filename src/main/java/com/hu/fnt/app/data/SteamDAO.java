@@ -15,16 +15,6 @@ import com.hu.fnt.app.util.JSONParser;
 public class SteamDAO {
 	private static final String API_BASE = "http://store.steampowered.com/api/";
 
-	/**
-	 * Haalt alle gameId en titles op vanaf
-	 * http://api.steampowered.com/ISteamApps/GetAppList/v0001/ Je hoeft dus
-	 * alleen appId en title voor elke game te setten (constructor)
-	 * 
-	 * LET OP! filteren op type="game" anders krijg je ook andere apps en
-	 * rotzooi
-	 * 
-	 * @return
-	 */
 	public static List<Game> getGames() {
 		JSONParser parser = new JSONParser("http://api.steampowered.com/ISteamApps/GetAppList/v0002/");
 		parser.printURLonExecute(true);
@@ -80,13 +70,6 @@ public class SteamDAO {
 		return allGames;
 	}
 
-	/**
-	 * Haalt de details op van een game aan de hand van appId Hier de Steam API
-	 * voor gebruiken (Documentatie staat op hun site)
-	 * 
-	 * @param appId
-	 * @return
-	 */
 	public static Game getGameDetails(int appId) {
 		JSONParser parser = new JSONParser(API_BASE + "appdetails?");
 		parser.addParam("appids", String.valueOf(appId));
