@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+xmlns:tns="http://www.hu.nl/NewWSDLFile/"
+ xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="NewWSDLFile"
+   targetNamespace="http://www.hu.nl/NewWSDLFile"
+   xmlns:requestGame="http://www.hu.nl/gameRequest"
+   xmlns:responseGame="http://www.hu.nl/gameResponse"
+   xmlns:requestGameDetails="http://www.hu.nl/gameDetailsRequest"
+   xmlns:responseGameDetails="http://www.hu.nl/gameDetailsResponse"
+   xmlns:service="http://www.hu.nl/NewWSDLFile">
+  <wsdl:types>
+    <xsd:schema>
+      			<xsd:import namespace="http://www.hu.nl/gameRequest"
+				schemaLocation="getGamesRequest.xsd" />
+			<xsd:import namespace="http://www.hu.nl/gameResponse"
+				schemaLocation="getGamesResponse.xsd" />
+                        <xsd:import namespace="http://www.hu.nl/gameDetailsRequest"
+				schemaLocation="getGameDetailsRequest.xsd" />
+			<xsd:import namespace="http://www.hu.nl/gameDetailsResponse"
+				schemaLocation="getGameDetailsResponse.xsd" />
+
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="gameRequest">
+    <wsdl:part name="gameRequest" element="request:gameRequest"/>
+  </wsdl:message>
+  <wsdl:message name="gameResponse">
+    <wsdl:part name="gameResponse" element="response:gameResponse"/>
+  </wsdl:message>
+   <wsdl:message name="gameDetailsRequest">
+    <wsdl:part name="powerRequest" element="request:powerRequest"/>
+  </wsdl:message>
+  <wsdl:message name="powerResponse">
+    <wsdl:part name="powerResponse" element="response:powerResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="WS-Interface">
+    <wsdl:operation name="mijnMethod">
+      <wsdl:input message="service:powerRequest"/>
+      <wsdl:output message="service:powerResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WS-Binding" type="service:WS-Interface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="mijnMethod">
+      <soap:operation soapAction="" style = "document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="mijnService">
+    <wsdl:port name="WS-Port" binding="service:WS-Binding">
+      <soap:address location="http://www.hu.nl/SayHello/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
