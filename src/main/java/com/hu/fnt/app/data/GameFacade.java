@@ -8,7 +8,7 @@ import java.util.List;
  *
  */
 public class GameFacade {
-	
+
 	/**
 	 * Al klaar
 	 * @return
@@ -30,7 +30,12 @@ public class GameFacade {
 	 * @return
 	 */
 	public static Game getGameDetails(int appId){
-		return null;
+            Game game = SteamDAO.getGameDetails(appId);
+            String gameTitle = game.getTitle();
+            game.setGiantBombReview(GiantBombDAO.getReview(gameTitle));
+            game.setIgnRating(IgnDAO.getRating(gameTitle));
+            game.setVideoId(YoutubeDAO.getVideoId(gameTitle));
+		return game;
 	}
 	
 }
